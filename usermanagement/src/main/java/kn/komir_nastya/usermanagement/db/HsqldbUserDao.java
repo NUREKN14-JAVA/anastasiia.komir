@@ -12,7 +12,7 @@ import java.sql.Date;
 
 import kn.komir_nastya.usermanagement.User;
 
- class HsqldbUserDao implements UserDao {
+ public class HsqldbUserDao implements UserDao {
 
 private static final String SELECT_ALL_QUERY = "SELECT id, firstname, lastname, dateofbirth FROM users";
 private static final String INSERT_QUERY = "INSERT INTO users(firstname, lastname, dateofbirth) VALUES (?, ?, ?)";
@@ -71,7 +71,7 @@ public void setConnectionFactory(ConnectionFactory connectionFactory) {
 	}
 
 
-	public void update(User user) throws DatabaseException {
+	public User update(User user) throws DatabaseException {
 	       try {
 	            Connection connection = connectionFactory.createConnection();
 	            PreparedStatement statement = connection
@@ -86,14 +86,16 @@ public void setConnectionFactory(ConnectionFactory connectionFactory) {
 	            }
 	            statement.close();
 	            connection.close();
+	            return user;
 	        } catch (DatabaseException e) {
 	            throw e;
 	        } catch (SQLException e) {
 	            throw new DatabaseException(e);
 	        }
+		
 	}
 
-	public void delete(User user) throws DatabaseException {
+	public User delete(User user) throws DatabaseException {
 		try {
             Connection connection = connectionFactory.createConnection();
             PreparedStatement statement = connection
@@ -105,6 +107,7 @@ public void setConnectionFactory(ConnectionFactory connectionFactory) {
             }
             statement.close();
             connection.close();
+            return user;
         } catch (DatabaseException e) {
             throw e;
         } catch (SQLException e) {
@@ -165,6 +168,6 @@ public void setConnectionFactory(ConnectionFactory connectionFactory) {
 	}
 		return result;
 	}
-	 
+
 
 }

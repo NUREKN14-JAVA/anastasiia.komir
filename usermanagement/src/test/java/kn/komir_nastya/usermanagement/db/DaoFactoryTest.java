@@ -1,5 +1,4 @@
-package kn.komir_nastya.usermanagement.db;
-
+package kn.komir_nastya
 import static org.junit.Assert.*;
 
 import org.junit.Test;
